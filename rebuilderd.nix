@@ -51,14 +51,13 @@ rustPlatform.buildRustPackage {
     in
       optionalString (backends != []) ''
         sed -i 's/"\."/"${escapePath backendsBin}\/bin"/' ./worker/src/rebuild.rs
-        sed -i 's/\(return Ok(bin\.to_path_buf());\)/println!("{:?}", bin); \1/' ./worker/src/rebuild.rs
-        cat ./worker/src/rebuild.rs | head -n 40 | tail -n 1 ; sleep 5
       '';
 
   meta = with lib; {
-    description = "";
-    homepage = "";
-    license = licenses.mit;
+    description = "Independent verification of binary packages - reproducible builds";
+    homepage = "https://github.com/kpcyrd/rebuilderd";
+    license = licenses.gpl3Plus;
+    platforms = platforms.unix;
     maintainers = [ maintainers.magic_rb ];
     mainProgram = "rebuildctl";
   };

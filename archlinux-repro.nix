@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ git gnum4 asciidoc makeWrapper ];
 
   installPhase = ''
-    make install DESTDIR=$out PREFIX=""
+    make install PREFIX=$out
   '';
 
   fixupPhase = ''
@@ -35,6 +35,11 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
+    description = "Tools to reproduce arch linux packages";
+    homepage = "https://github.com/archlinux/archlinux-repro";
+    license = licenses.mit;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.magic_rb ];
     mainProgram = "repro";
   };
 }
