@@ -3,7 +3,7 @@
 , lib
 
 , makeWrapper
-, curl, gnupg, systemd, asciidoc, git, gnum4, gettext
+, curl, gnupg, systemd, asciidoc, git, gnum4, gettext, sudo, utillinux
 }:
 with lib;
 let
@@ -23,7 +23,8 @@ stdenv.mkDerivation {
 
   fixupPhase = ''
     patchShebangs --build $out/bin/
-    wrapProgram $out/bin/repro --prefix PATH : ${makeBinPath [ curl gnupg systemd gettext ]} 
+    # sed -i 's/curl -f --remote-name-all/cat \$SSL_CERT_FILE \&\& curl -f --remote-name-all/' $out/bin/repro
+    wrapProgram $out/bin/repro --prefix PATH : ${makeBinPath [ sudo utillinux curl gnupg systemd gettext ]} 
   '';
 
   src = fetchFromGitHub {
